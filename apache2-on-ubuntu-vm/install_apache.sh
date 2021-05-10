@@ -9,24 +9,29 @@
 #  the following blank line accepts the default final sector.
 #  p prints the partition table.
 #  w writes the changes and exits.
-echo -e "nn\np\n1\n\n\nw" | fdisk /dev/sdd
+# echo -e "n\np\n1\n\n\nw" | fdisk $devicePath
+
+devicePath=/dev/sdd
+vgName=vg_app
+lvName=lv_apache
+mountTarget=/var/www
 
 # Creación del VG_Group
-pvcreate /dev/sdd1
-vgcreate vg_app /dev/sdd1
+pvcreate $devicePath
+vgcreate $vgName $devicePath
 
 # Creación de los LVM
-lvcreate -l 100%FREE -n lv_apache vg_app
+lvcreate -l 100%FREE -n $lvName $vgName
 
 # Formateo de volumenes
-mkfs.ext4  /dev/mapper/vg_app-lv_apache
+mkfs.ext4  /dev/mapper/$vgName-$lvName
 
 # Creaa carpeta y monta el volumen
-mkdir /var/www
-mount /dev/mapper/vg_app-lv_apache /var/www
+mkdir $mountTarget
+mount /dev/mapper/$vgName-$lvName $mountTarget
 
 # Agregar montado de disco al archivo /etc/fstab
-echo '/dev/mapper/vg_app-lv_apache /var/www       ext4   defaults,nofail    1  2' >> /etc/fstab
+echo '/dev/mapper/$vgName-$lvName $mountTarget      ext4   defaults,nofail    1  2' >> /etc/fstab
 
 # Inicia la instalación del subsistema
 # Instalación de subsistema: Apache2
