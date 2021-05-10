@@ -61,14 +61,12 @@ echo '/dev/mapper/vg_lbsdisks-lv_agent /agent       ext4   defaults,nofail    1 
 echo '/dev/mapper/vg_app-lv_apache /var/www       ext4   defaults,nofail    1  2' >> /etc/fstab
 
 # Instalación de subsistema: Apache2
-
 dpkg --configure -a
 apt-get -y update
 
 # install Apache2
 apt-get -y install apache2
-apt-get -y install mysql-server
-apt-get -y install php libapache2-mod-php php-mysql
+
 # write some HTML
 vmmetadata="curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-04-02""
 echo "<center><h1> Computer: $(hostname) </h1><br/>$($vmmetadata)</center>" > /var/www/html/index.html
