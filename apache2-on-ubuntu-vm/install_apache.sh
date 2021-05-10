@@ -12,6 +12,7 @@
 echo -e "nn\np\n1\n\n\nw" | fdisk /dev/sdd
 
 # Creación del VG_Group
+pvcreate /dev/sdd1
 vgcreate vg_app /dev/sdd1
 
 # Creación de los LVM
