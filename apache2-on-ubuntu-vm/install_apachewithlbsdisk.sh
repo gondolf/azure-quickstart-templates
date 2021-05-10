@@ -10,6 +10,7 @@
 #  p prints the partition table.
 #  w writes the changes and exits.
 echo -e "nn\np\n1\n\n\nw" | fdisk /dev/sdc
+echo -e "nn\np\n1\n\n\nw" | fdisk /dev/sdd
 
 # Creación del VG_Group
 vgcreate vg_lbsdisks /dev/sdc1
