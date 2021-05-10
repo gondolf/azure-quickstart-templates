@@ -41,8 +41,8 @@ mount  /dev/mapper/vg_lbsdisks-lv_var /tmp/vartmp/
 mount  /dev/mapper/vg_lbsdisks-lv_home /tmp/hometmp/
 
 # Copiar los archivos desde la carpeta /home,/var hacia carpetas en la ruta /tpm
-sudo rsync -avz /home/ /tmp/hometmp/ 
-sudo rsync -avz /var/ /tmp/vartmp/
+rsync -avz /home/ /tmp/hometmp/ 
+rsync -avz /var/ /tmp/vartmp/
 
 mount /dev/mapper/vg_lbsdisks-lv_home /home/  
 mount /dev/mapper/vg_lbsdisks-lv_var /var/
